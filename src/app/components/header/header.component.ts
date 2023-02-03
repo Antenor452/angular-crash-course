@@ -8,12 +8,16 @@ import {Subscription} from 'rxjs';
 })
 export class HeaderComponent {
   title:string = 'Task Tracker'
-  showAddTask!:boolean;
-  subscription!:Subscription;
+  showAddTask:boolean = false;
+  subscription:Subscription;
 
 
   constructor( private uiService:UiService = new UiService())
-  {}
+  {
+    this.subscription = this.uiService.onToggle().subscribe((value)=>{
+      this.showAddTask = value;
+    });
+  }
 
 toggleAddTask(){
   this.uiService.toggleAddTask();
